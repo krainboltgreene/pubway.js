@@ -15,7 +15,7 @@ export default pushSet({
   redux (verb, path, query) {
     return store.dispatch(refreshStore(verb, path, query))
   },
-  // Handles: DELETE falcor:/
+  // Handles: DELETE falcor:/projects
   // Handles: GET falcor:/projects/1234123/title
   falcor (verb, path, query) {
     // ...
@@ -24,5 +24,4 @@ export default pushSet({
   custom (intent, value, query) {
     // ...
   },
-  // You can trigger all by doing: DELETE /, GET /, or PUT /
 })
