@@ -1,18 +1,18 @@
 import {test} from "babel-tap"
 import {spy} from "sinon"
 
-import pushSet from "./index"
+import pubway from "./index"
 
 test(({end, ok}) => {
   const unction = spy()
 
-  const set = pushSet({
+  const route = pubway({
     custom (verb, path) {
       return unction(verb, path)
     }
   })
 
-  set("GET custom:/a/b/c")
+  route("GET custom:/a/b/c")
 
   ok(unction.calledWith("GET", "/a/b/c"))
 
@@ -23,13 +23,13 @@ test(({end, ok}) => {
 test(({end, notOk}) => {
   const unction = spy()
 
-  const set = pushSet({
+  const router = pubway({
     custom (verb, path) {
       return unction(verb, path)
     }
   })
 
-  set("GET rex:/a/b/c")
+  route("GET rex:/a/b/c")
 
   notOk(unction.calledWith("GET", "/a/b/c"))
 

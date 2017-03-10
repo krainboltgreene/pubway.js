@@ -10,10 +10,10 @@ const instructionKeys = {
 const INSTRUCTION_TEST_PATTERN = /(GET|DELETE) .+?:.+/
 const INSTRUCTION_MATCH_PATTERN = /(GET|DELETE) (.+?):(.+)/
 
-export default function pushSet (adapters: AdaptersType): Function {
-  return function pushSetWithAdapters (raw: string): SideEffectType {
+export default function pubway (adapters: AdaptersType): Function {
+  return function pubwayWithAdapters (raw: string): SideEffectType {
     if (!test(INSTRUCTION_TEST_PATTERN, raw)) {
-      console.warn("Event didn't match instruction pattern:", {event})
+      console.warn("Data didn't match instruction pattern:", {event})
 
       return null
     }

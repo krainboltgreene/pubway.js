@@ -1,4 +1,4 @@
 import pusher from "pusher-js"
-import pushSet from "../pushSet"
+import router from "../pubway"
 
-pusher.listen("changes", pushSet)
+pusher.listen("changes", router)

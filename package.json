@@ -1,5 +1,5 @@
 {
-  "name": "pushSet",
+  "name": "pubway",
   "version": "1.0.0",
   "description": "A library manages publishes from publish/subscription connections",
   "main": "transpiled/source/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krainboltgreene/pushSet.js.git"
+    "url": "git+https://github.com/krainboltgreene/pubway.js.git"
   },
   "keywords": [
     "pubsub",
@@ -28,9 +28,9 @@
   "author": "Kurtis Rainbolt-Greene (@krainboltgreene) <me@kurtisrainboltgreene.name>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/krainboltgreene/pushSet.js/issues"
+    "url": "https://github.com/krainboltgreene/pubway.js/issues"
   },
-  "homepage": "https://github.com/krainboltgreene/pushSet.js#readme",
+  "homepage": "https://github.com/krainboltgreene/pubway.js#readme",
   "devDependencies": {
     "babel-cli": "6.23.0",
     "babel-core": "6.23.1",

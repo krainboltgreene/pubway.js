@@ -1,4 +1,4 @@
-# pushSet
+# pubway
 
 Lets say you have four nodes in a system:
 
@@ -21,9 +21,9 @@ Assuming you've decided the latter option is the correct choice you now have the
 
 I will leave the former problem up to the market (Pusher, Firebase, etc). The latter problem is something I can solve! Further you'll encounter that publishes have a content limitation. Pusher for example has 10kB message limit. Since data can be variable in size I don't think it's a good idea to send the entire resource "up the wire". We're now required to design the minimum viable payload to get the maximum amount of signaling to the clients.
 
-Now that we've got the situation laid out here is what pushSet does:
+Now that we've got the situation laid out here is what pubway does:
 
-pushSet is a SDK for publish/subscribe connects and a application layer protocol for the messages. pushSet is told the data stores your client has and how to initiate state changes. The way pushSet knows what to do is based on the application layer protocol:
+pubway is a SDK for publish/subscribe connects and a application layer protocol for the messages. pubway is told the data stores your client has and how to initiate state changes. The way pubway knows what to do is based on the application layer protocol:
 
 When the server state changes it sends a payload that matches this pattern:
 
@@ -54,13 +54,13 @@ Here's a breakdown of the application layer protocol:
   - **protocol**: The adapter to use on the client side, can be anything. Unknown adapters are ignored.
   - **path**: This is intended to be the path of a tree. For example, Falcor takes an array of values `["projects", 241235, "title"]` and is passed `GET falcor:/projects/241235/title`.
 
-Here's what a redux-based pushSet usage would look like:
+Here's what a redux-based pubway usage would look like:
 
 ``` javascript
 import pusher from "pusher-js"
-import pushSet from "pushSet"
+import pubway from "pubway"
 
-pusher.listen("updates-channel", pushSet({
+pusher.listen("updates-channel", pubway({
   redux (verb, path) {
     return store.dispatch(changeResources(verb, path))
   }
@@ -77,11 +77,11 @@ And now here's what our adapter looks like:
 
 ``` javascript
 import pusher from "pusher-js"
-import pushSet from "pushSet"
+import pubway from "pubway"
 
 import decode from "./decode"
 
-pusher.listen("updates-channel", pushSet({
+pusher.listen("updates-channel", pubway({
   redux (verb, path) {
     return store.dispatch(changeEncryptedResources(verb, path))
   }
@@ -89,7 +89,7 @@ pusher.listen("updates-channel", pushSet({
 ```
 
 
-[BADGE_TRAVIS]: https://img.shields.io/travis/krainboltgreene/pushSet.js.svg?maxAge=2592000&style=flat-square
-[BADGE_VERSION]: https://img.shields.io/npm/v/pushSet.svg?maxAge=2592000&style=flat-square
+[BADGE_TRAVIS]: https://img.shields.io/travis/krainboltgreene/pubway.js.svg?maxAge=2592000&style=flat-square
+[BADGE_VERSION]: https://img.shields.io/npm/v/pubway.svg?maxAge=2592000&style=flat-square
 [BADGE_STABILITY]: https://img.shields.io/badge/stability-strong-green.svg?maxAge=2592000&style=flat-square
-[BADGE_DEPENDENCY]: https://img.shields.io/david/krainboltgreene/pushSet.js.svg?maxAge=2592000&style=flat-square
+[BADGE_DEPENDENCY]: https://img.shields.io/david/krainboltgreene/pubway.js.svg?maxAge=2592000&style=flat-square

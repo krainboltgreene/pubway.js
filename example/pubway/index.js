@@ -1,15 +1,8 @@
-import pushSet from "pushSet"
+import pubway from "pubway"
 import {refreshStore} from "../signals"
 
-// type PushSet$VerbType = "GET" | "DELETE"
-// type PushSet$DispatchType = (verb: VerbType, path: string) => any
-//
-// type PushSet$AdapterType = {
-//   [key: string]: PushSet$DispatchType
-// }
-
 // Define all the adapters you'll be supporting, where the method name is the protocol section of the payload.
-export default pushSet({
+export default pubway({
   // Handles: GET redux:/resouces/activities/230592394/name
   // Handles: GET redux:/resouces/profiles
   // Handles: DELETE redux:/sessions/54983
