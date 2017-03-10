@@ -35,12 +35,10 @@ GET redux:/resources/accounts/f26c1cb0-c7a1-44a7-8b72-2843568406bd/name
 ```
 
 ```
-intent [protocol:]path
+intent protocol:path
 ```
 
-These are all
-
-An example would be an account changing it's name:
+The following is an example of an account changing it's name:
 
 ```
 GET redux:/resources/accounts/f26c1cb0-c7a1-44a7-8b72-2843568406bd/name
