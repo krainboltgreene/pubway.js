@@ -1,4 +1,3 @@
-// @flow
 import {match} from "ramda"
 import {applySpec} from "ramda"
 
