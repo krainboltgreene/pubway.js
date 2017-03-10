@@ -9,19 +9,19 @@ import pushSet from "pushSet"
 
 // Define all the adapters you'll be supporting, where the method name is the protocol section of the payload.
 export default pushSet({
-  // Handles: GET redux:/data/activities/230592394
-  // Handles: GET redux:/data/profiles
+  // Handles: GET redux:/resouces/activities/230592394/name
+  // Handles: GET redux:/resouces/profiles/
   // Handles: DELETE redux:/sessions/54983
-  redux ([verb, path]) {
-    return store.dispatch(refreshStore(verb, path))
+  redux (verb, path, query) {
+    return store.dispatch(refreshStore(verb, path, query))
   },
   // Handles: DELETE falcor:/
   // Handles: GET falcor:/projects/1234123/title
-  falcor ([verb, path]) {
+  falcor (verb, path, query) {
     // ...
   },
   // Handles: GET custom:/whatever/you/want?ok
-  custom ([intent, value]) {
+  custom (intent, value, query) {
     // ...
   },
   // You can trigger all by doing: DELETE /, GET /, or PUT /

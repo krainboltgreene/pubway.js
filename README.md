@@ -27,9 +27,18 @@ pushSet is a SDK for publish/subscribe connects and a application layer protocol
 
 When the server state changes it sends a payload that matches this pattern:
 
+
+An example would be an account changing it's name:
+
 ```
-intent protocol:path
+GET redux:/resources/accounts/f26c1cb0-c7a1-44a7-8b72-2843568406bd/name
 ```
+
+```
+intent [protocol:]path
+```
+
+These are all
 
 An example would be an account changing it's name:
 
@@ -45,18 +54,40 @@ Here's a breakdown of the application layer protocol:
   - **protocol**: The adapter to use on the client side, can be anything. Unknown adapters are ignored.
   - **path**: This is intended to be the path of a tree. For example, Falcor takes an array of values `["projects", 241235, "title"]` and is passed `GET falcor:/projects/241235/title`.
 
-Here's what a redux based pushSet usage would look like:
+Here's what a redux-based pushSet usage would look like:
 
 ``` javascript
 import pusher from "pusher-js"
 import pushSet from "pushSet"
 
 pusher.listen("updates-channel", pushSet({
-  redux ([verb, path]) {
-    return store.dispatch(pushSetResources(verb, path))
+  redux (verb, path) {
+    return store.dispatch(changeResources(verb, path))
   }
 }))
 ```
+
+Okay, so what if path contains confidential information? Well we can still operate much the same way:
+
+```
+GET redux:/jwt/e257e5f087ff1490b417412f7f3d49f74fbaad1b188f0e3588e70e0c9a49cc7a
+```
+
+And now here's what our adapter looks like:
+
+``` javascript
+import pusher from "pusher-js"
+import pushSet from "pushSet"
+
+import decode from "./decode"
+
+pusher.listen("updates-channel", pushSet({
+  redux (verb, path) {
+    return store.dispatch(changeEncryptedResources(verb, path))
+  }
+}))
+```
+
 
 [BADGE_TRAVIS]: https://img.shields.io/travis/krainboltgreene/pushSet.js.svg?maxAge=2592000&style=flat-square
 [BADGE_VERSION]: https://img.shields.io/npm/v/pushSet.svg?maxAge=2592000&style=flat-square

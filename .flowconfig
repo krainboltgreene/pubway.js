@@ -1,6 +1,7 @@
 [ignore]
 .*/node_modules/.*
 <PROJECT_ROOT>/transpiled/.*
+<PROJECT_ROOT>/example/.*
 
 [include]
 ./source/
