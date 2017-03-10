@@ -10,7 +10,7 @@ import pushSet from "pushSet"
 // Define all the adapters you'll be supporting, where the method name is the protocol section of the payload.
 export default pushSet({
   // Handles: GET redux:/resouces/activities/230592394/name
-  // Handles: GET redux:/resouces/profiles/
+  // Handles: GET redux:/resouces/profiles
   // Handles: DELETE redux:/sessions/54983
   redux (verb, path, query) {
     return store.dispatch(refreshStore(verb, path, query))
