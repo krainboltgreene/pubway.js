@@ -6,13 +6,13 @@ import pubway from "./index"
 test(({end, ok}) => {
   const unction = spy()
 
-  const route = pubway({
+  const router = pubway({
     custom (verb, path) {
       return unction(verb, path)
     }
   })
 
-  route("GET custom:/a/b/c")
+  router("GET custom:/a/b/c")
 
   ok(unction.calledWith("GET", "/a/b/c"))
 
@@ -29,7 +29,7 @@ test(({end, notOk}) => {
     }
   })
 
-  route("GET rex:/a/b/c")
+  router("GET rex:/a/b/c")
 
   notOk(unction.calledWith("GET", "/a/b/c"))
 
