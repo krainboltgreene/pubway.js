@@ -1,5 +1,7 @@
 # pubway
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/krainboltgreene/pubway.js.svg)](https://greenkeeper.io/)
+
 Lets say you have four nodes in a system:
 
   - Client A
