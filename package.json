@@ -5,14 +5,10 @@
   "main": "transpiled/source/index.js",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "rm -rf './transpiled/' && mkdir './transpiled/' && babel './source/**/index.js' -d './transpiled/'",
-    "test": "babel-tap --jobs=10 './source/**/test.js'",
-    "start": "npm-run-all --parallel watch:build watch:test",
-    "lint": "eslint './source/'",
-    "watch": "npm-run-all --parallel watch:test watch:lint watch:build",
-    "watch:build": "chokidar './source/' --initial --command 'npm run build --silent'",
-    "watch:test": "chokidar './source/' --initial --command 'npm run test --silent'",
-    "watch:lint": "chokidar './source/' --initial --command 'npm run lint --silent'"
+    "build": "babel './source/**/*.js' -d './transpiled/'",
+    "pretest": "npm run build",
+    "test": "tap './transpiled/source/**/test.js'",
+    "lint": "eslint './source/'"
   },
   "repository": {
     "type": "git",
