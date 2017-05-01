@@ -1,6 +1,6 @@
 {
   "name": "pubway",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A library manages publishes from publish/subscription connections",
   "main": "transpiled/source/index.js",
   "scripts": {
