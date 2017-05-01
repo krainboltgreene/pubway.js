@@ -1,4 +1,4 @@
-import {test} from "babel-tap"
+import {test} from "tap"
 import {spy} from "sinon"
 
 import pubway from "./index"
