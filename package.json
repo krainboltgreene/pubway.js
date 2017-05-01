@@ -8,7 +8,8 @@
     "build": "babel './source/**/*.js' -d './transpiled/'",
     "pretest": "npm run build",
     "test": "tap './transpiled/source/**/test.js'",
-    "lint": "eslint './source/'"
+    "lint": "eslint './source/'",
+    "check": "flow check './source/'"
   },
   "repository": {
     "type": "git",
