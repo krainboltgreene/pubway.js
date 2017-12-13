@@ -11,9 +11,11 @@
 
 # Temporary files
 /tmp/
+/coverage/
+/.nyc_output/
 
 # Log files
-/*.log
+*.log
 
 # Sensitive files
 /.env

@@ -1,32 +1,33 @@
 import {test} from "ramda"
 import {match} from "ramda"
-import {has} from "ramda"
+import mapValues from "@unction/mapvalues"
+import thrush from "@unction/thrush"
 
-const instructionKeys = {
-  intent: 1,
-  protocol: 2,
-  path: 3
-}
-const INSTRUCTION_TEST_PATTERN = /(GET|DELETE) .+?:.+/
-const INSTRUCTION_MATCH_PATTERN = /(GET|DELETE) (.+?):(.+)/
+type PayloadType = {intent: string, path: string}
+type MapperFunctionType = PayloadType => mixed
 
-export default function pubway (adapters: AdaptersType): Function {
-  return function pubwayWithAdapters (raw: string): SideEffectType {
-    if (!test(INSTRUCTION_TEST_PATTERN, raw)) {
-      console.warn("Data didn't match instruction pattern:", {event})
+const INSTRUCTION_MATCH_PATTERN = /(PATCH|DELETE) (.+)/i
 
+export default function pubway (adapters: MapperFunctionType | Array<MapperFunctionType>): Function {
+  return function pubwayWithAdapters (raw: string): mixed {
+    if (!test(INSTRUCTION_MATCH_PATTERN, raw)) {
       return null
     }
 
-    const instruction: Array<string> = match(INSTRUCTION_MATCH_PATTERN, raw)
-    const intent: IntentType = instruction[instructionKeys.intent]
-    const protocol: ProtocolType = instruction[instructionKeys.protocol]
-    const path: PathType = instruction[instructionKeys.path]
+    const [, intent, path]: [string, string] = match(INSTRUCTION_MATCH_PATTERN, raw)
 
-    if (!has(protocol, adapters)) {
-      return null
+    if (adapters instanceof Array) {
+      return mapValues(thrush({
+        intent,
+        path,
+      }))(
+        adapters
+      )
     }
 
-    return adapters[protocol](intent, path)
+    return adapters({
+      intent,
+      path,
+    })
   }
 }

@@ -4,35 +4,82 @@ import {spy} from "sinon"
 
 import pubway from "./index"
 
-test(({end, ok}) => {
-  const unction = spy()
+test("bad message", ({end, equal}) => {
+  const afunction = spy()
 
-  const router = pubway({
-    custom (verb, path) {
-      return unction(verb, path)
-    }
-  })
+  const router = pubway(afunction)
 
-  router("GET custom:/a/b/c")
-
-  ok(unction.calledWith("GET", "/a/b/c"))
+  equal(router("GET /a/b/c"), null)
 
   end()
 })
 
+test("PATCH, single adapter", ({end, ok}) => {
+  const afunction = spy()
 
-test(({end, notOk}) => {
-  const unction = spy()
+  const router = pubway(afunction)
 
-  const router = pubway({
-    custom (verb, path) {
-      return unction(verb, path)
-    }
-  })
+  router("PATCH /a/b/c")
 
-  router("GET rex:/a/b/c")
+  ok(afunction.calledWith({
+    intent: "PATCH",
+    path: "/a/b/c",
+  }))
 
-  notOk(unction.calledWith("GET", "/a/b/c"))
+  end()
+})
+
+test("DELETE, single adapter", ({end, ok}) => {
+  const afunction = spy()
+
+  const router = pubway(afunction)
+
+  router("DELETE /a/b/c")
+
+  ok(afunction.calledWith({
+    intent: "DELETE",
+    path: "/a/b/c",
+  }))
+
+  end()
+})
+
+test("PATCH, multi-adapter", ({end, ok}) => {
+  const afunction = spy()
+  const bfunction = spy()
+
+  const router = pubway([
+    ({intent, path}) => afunction(intent, path),
+    bfunction,
+  ])
+
+  router("PATCH /a/b/c")
+
+  ok(afunction.calledWith("PATCH", "/a/b/c"))
+  ok(bfunction.calledWith({
+    intent: "PATCH",
+    path: "/a/b/c",
+  }))
+
+  end()
+})
+
+test("DELETE, multi-adapter", ({end, ok}) => {
+  const afunction = spy()
+  const bfunction = spy()
+
+  const router = pubway([
+    ({intent, path}) => afunction(intent, path),
+    bfunction,
+  ])
+
+  router("DELETE /a/b/c")
+
+  ok(afunction.calledWith("DELETE", "/a/b/c"))
+  ok(bfunction.calledWith({
+    intent: "DELETE",
+    path: "/a/b/c",
+  }))
 
   end()
 })
